@@ -10,7 +10,6 @@ class HomeController extends GetxController {
     super.onInit();
 
     scrollController.addListener(() {
-      print('position listview: ${(scrollController.offset / 240).toInt()}');
       indexScroll.value = (scrollController.offset / 240).toInt();
     });
   }

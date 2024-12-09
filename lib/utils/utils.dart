@@ -144,6 +144,7 @@ final listSuggestQuiz = <Quiz>[
       colorProgress: Colors.orange,
       percentComplete: 0.5),
 ];
+
 final unFinishQuiz = <Quiz>[
   Quiz(
       topic: 'Mathematics Quiz',

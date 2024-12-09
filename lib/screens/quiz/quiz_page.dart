@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kid_app/gen/colors.dart';
+import 'package:kid_app/routes/app_navigate.dart';
 import 'package:kid_app/screens/quiz/quiz_controller.dart';
 import 'package:kid_app/widget/button/app_button.dart';
 import 'package:kid_app/widget/button/button_cancel.dart';
 import 'package:kid_app/widget/button/control_button.dart';
-import 'package:kid_app/widget/button_coin.dart';
+import 'package:kid_app/widget/button/button_coin.dart';
+import 'package:kid_app/widget/dialog/dialog_confirm_submit.dart';
 
 import '../../style/text_style.dart';
 
@@ -60,7 +62,7 @@ class QuizPage extends StatelessWidget {
           child: PageView.builder(
             scrollDirection: Axis.horizontal,
             controller: controller.pageController,
-            itemCount: controller.quiz.question?.length ?? 1,
+            itemCount: controller.quiz.question.length,
             itemBuilder: (context, index) {
               return _buildQuestion(index: index);
             },
@@ -75,7 +77,7 @@ class QuizPage extends StatelessWidget {
 
   /// Create view question
   Widget _buildQuestion({required int index}) {
-    final question = controller.quiz.question![index];
+    final question = controller.quiz.question[index];
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -115,7 +117,7 @@ class QuizPage extends StatelessWidget {
 
   /// Create list answer
   ListView _buildListAnswer({required int index}) {
-    final question = controller.quiz.question![index];
+    final question = controller.quiz.question[index];
     return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -158,7 +160,7 @@ class QuizPage extends StatelessWidget {
                       valueColor:
                           const AlwaysStoppedAnimation<Color>(ColorName.white),
                       backgroundColor: Colors.grey,
-                      strokeWidth: 3,
+                      strokeWidth: 2,
                     ),
                   ),
                   Text(controller.time.value, style: text16White)
@@ -193,21 +195,47 @@ class QuizPage extends StatelessWidget {
               },
               scale: controller.scalePrevious.value,
             )),
-      if (controller.currentQuestion.value !=
-          controller.numberQuestion.value - 1)
-        Positioned(
-            bottom: 30,
-            right: 15,
-            child: ControlButton(
-              onClick: () => controller.nextQuestion(),
-              onScaleUp: () {
-                controller.scaleUp();
-              },
-              onScaleDown: () {
-                controller.scaleDown();
-              },
-              scale: controller.scaleNext.value,
-            ))
+      (controller.currentQuestion.value != controller.numberQuestion.value - 1)
+          ? Positioned(
+              bottom: 30,
+              right: 15,
+              child: ControlButton(
+                onClick: () => controller.nextQuestion(),
+                onScaleUp: () {
+                  controller.scaleUp();
+                },
+                onScaleDown: () {
+                  controller.scaleDown();
+                },
+                scale: controller.scaleNext.value,
+              ))
+          : Positioned(
+              bottom: 40,
+              right: 15,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  foregroundColor: MaterialStateProperty.all(ColorName.white),
+                  elevation: MaterialStateProperty.all(5),
+                ),
+                  onPressed: () {
+                    Get.dialog(
+                      barrierColor: ColorName.transparent,
+                        barrierDismissible: false, DialogConfirmSubmit(
+                      onTapAgree: () {
+                        Get.back();
+                        AppNavigate.instance.gotoCompleteQuizPage();
+                      },
+                    ));
+                  },
+                  child: Text(
+                    'Nộp bài',
+                    style: text16White.copyWith(color: ColorName.black),
+                  ))),
     ];
   }
 }

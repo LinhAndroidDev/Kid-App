@@ -95,4 +95,8 @@ extension AppNavigateScreen on AppNavigate {
   Future<T> gotoQuizPage<T>({required Quiz quiz}) async {
     return await toNamed(AppRoute.quiz.rawValue, arguments: quiz);
   }
+
+  Future<T> gotoCompleteQuizPage<T>() async {
+    return await offAllNamed(AppRoute.complete.rawValue);
+  }
 }

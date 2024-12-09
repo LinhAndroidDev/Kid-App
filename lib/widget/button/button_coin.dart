@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kid_app/gen/colors.dart';
 import 'package:kid_app/style/text_style.dart';
 
-import '../gen/assets.dart';
+import '../../gen/assets.dart';
 
 class ButtonCoin extends StatelessWidget {
   const ButtonCoin(

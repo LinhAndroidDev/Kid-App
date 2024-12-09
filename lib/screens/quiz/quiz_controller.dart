@@ -47,7 +47,7 @@ class QuizController extends GetxController {
   /// This function will change the current question.
   void changeQuestion({required int position}) {
     currentQuestion.value = position;
-    question = quiz.question![currentQuestion.value];
+    question = quiz.question[currentQuestion.value];
   }
 
   /// This function will move to the next question.
@@ -84,7 +84,7 @@ class QuizController extends GetxController {
       question.stateAnswer[question.answerIndex] = 1;
       question.enable = false;
     }
-    quiz.question?[currentQuestion.value] = question;
+    quiz.question[currentQuestion.value] = question;
   }
 
   /// This function will calculate the time.
@@ -103,17 +103,17 @@ class QuizController extends GetxController {
   /// This function will initialize the argument.
   void initArgument() {
     quiz = Get.arguments as Quiz;
-    for (var i = 0; i < quiz.question!.length; i++) {
-      quiz.question![i].stateAnswer.clear();
-      quiz.question![i].enable = true;
-      for (var j = 0; j < quiz.question![i].options.length; j++) {
-        quiz.question![i].stateAnswer.add(0);
+    for (var i = 0; i < quiz.question.length; i++) {
+      quiz.question[i].stateAnswer.clear();
+      quiz.question[i].enable = true;
+      for (var j = 0; j < quiz.question[i].options.length; j++) {
+        quiz.question[i].stateAnswer.add(0);
       }
     }
-    quiz.question?.shuffle();
-    question = quiz.question![currentQuestion.value];
+    quiz.question.shuffle();
+    question = quiz.question[currentQuestion.value];
     seconds = quiz.time;
-    numberQuestion.value = quiz.question?.length ?? 1;
+    numberQuestion.value = quiz.question.length;
   }
 
   @override

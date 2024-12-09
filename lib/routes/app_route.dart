@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kid_app/screens/coin/coin_route.dart';
+import 'package:kid_app/screens/complete/complete_quiz_route.dart';
 import 'package:kid_app/screens/indice/indice_route.dart';
 import 'package:kid_app/screens/intro/intro_route.dart';
 import 'package:kid_app/screens/quiz/quiz_route.dart';
@@ -20,7 +21,8 @@ enum AppRoute {
   home('/home'),
   indices('/indices'),
   coin('/coin'),
-  quiz('/quiz');
+  quiz('/quiz'),
+  complete('/complete');
 
   const AppRoute(this.rawValue);
 
@@ -47,6 +49,8 @@ enum AppRoute {
         return CoinRoute().createRoute(settings);
       case AppRoute.quiz:
         return QuizRoute().createRoute(settings);
+      case AppRoute.complete:
+        return CompleteQuizRoute().createRoute(settings);
     }
   }
 

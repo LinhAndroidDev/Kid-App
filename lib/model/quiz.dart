@@ -9,7 +9,7 @@ class Quiz {
   final Color colorProgress;
   final double percentComplete;
   final int time;
-  final List<Question>? question;
+  final List<Question> question;
 
   Quiz({
     required this.topic,
@@ -18,6 +18,6 @@ class Quiz {
     required this.colorProgress,
     required this.percentComplete,
     this.time = 10,
-    this.question,
+    this.question = const [],
   });
 }
